@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    // Login
     public function login(Request $request)
     {
         $request->validate([
@@ -18,7 +17,6 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Authentication passed...
             Auth::login(Auth::user());
             return redirect()->intended('/');
         }
@@ -28,7 +26,6 @@ class AuthController extends Controller
         ]);
     }
 
-    // Logout
     public function logout()
     {
         Auth::logout();

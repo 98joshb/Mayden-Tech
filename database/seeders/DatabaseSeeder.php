@@ -17,14 +17,11 @@ class DatabaseSeeder extends Seeder
         Role::create([
             'name' => 'User',
             'slug' => 'user',
-            // 'permissions' => json_encode([
-            //     'create-post' => true,
-            // ]),
         ]);
 
         User::create([
-            'name' => 'Steve',
-            'email' => 'Steve@example.com',
+            'name' => 'User',
+            'email' => 'user@account.com',
             'password' => Hash::make('password'),
             'role_id' => 1,
         ]);

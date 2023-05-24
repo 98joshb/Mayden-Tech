@@ -13,12 +13,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-primary py-3 px-4">
         <a class="navbar-brand text-light" href="#">Mayden-Tech</a>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-                @guest
-                <li class="nav-item">
-                    <a class="btn btn-outline-light btn-sm" href="{{ route('login') }}">Login</a>
-                </li>
-                @else
+            @if(Auth::check())
+                <ul class="navbar-nav">
                     <li class="nav-item">
                         <button type="button" class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#spendingLimitModal">Set Spending Limit</button>
                     </li>
@@ -31,9 +27,8 @@
                             <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
                         </form>
                     </li>
-                @endguest
-            
-            </ul>
+                </ul>
+            @endif
         </div>
     </nav>
 
@@ -43,8 +38,8 @@
         </div>
     </section>
 
-    <!-- Spending Limit Modal -->
     @if(Auth::check())
+        <!-- Spending Limit Modal -->
         <div class="modal fade" id="spendingLimitModal" tabindex="-1" aria-labelledby="spendingLimitModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -69,7 +64,7 @@
                 </div>
             </div>
         </div>    
-
+        <!-- Email Modal -->
         <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
