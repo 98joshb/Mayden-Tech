@@ -107,14 +107,13 @@ class ShoppingListController extends Controller
     public function sendEmail(Request $request)
     {
         $request->validate([
-            'recipient_email' => 'required|email',
+            'recipient_email' => 'required|email', 
             'message' => 'nullable|string',
             'shopping_list_id' => 'required|exists:shopping_lists,id',
         ]);
     
         $shoppingList = ShoppingList::findOrFail($request->shopping_list_id);
     
-        // Calculate the total price
         $totalAmount = 0;
         foreach ($shoppingList->items as $item) {
             $totalAmount += $item->amount;
@@ -124,7 +123,6 @@ class ShoppingListController extends Controller
         $recipientEmail = $request->recipient_email;
         $message = $request->message;
     
-        // Prepare the data for the email
         $data = [
             'shoppingList' => $shoppingList,
             'messages' => $message,
@@ -132,17 +130,14 @@ class ShoppingListController extends Controller
         ];
     
         try {
-            // Send the email
             Mail::send('emails.shopping_list', $data, function ($message) use ($recipientEmail) {
                 $message->to($recipientEmail)
                     ->subject('Your Shopping List');
             });
     
-            // Redirect back with a success message
-            return redirect()->back()->with('success', 'Email sent successfully.');
+            return redirect()->back();
         } catch (\Exception $e) {
-            dd($e);
-            return redirect()->back()->with('error', 'Failed to send email.');
+            return redirect()->back();
         }
     }
     
