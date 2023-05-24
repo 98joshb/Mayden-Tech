@@ -15,9 +15,8 @@ class UserProfileController extends Controller
             'spending_limit' => 'nullable|numeric|min:0',
         ]);
 
-        $user->update([
-            'spending_limit' => $request->input('spending_limit')
-        ]);
+        $user->spending_limit = $request->input('spending_limit');
+        $user->save();
 
         return redirect()->back();
     }
